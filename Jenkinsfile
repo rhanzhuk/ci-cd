@@ -3,13 +3,13 @@ pipeline {
         docker {
             image 'maven'
             args '-v /root/.m2:/root/.m2'
+            reuseNode true
             }
     }
     stages {
         stage('Docker') {
             steps {
                 sh 'mvn clean install'
-                reuseNode true
             }
         }
         stage ('Build image'){
