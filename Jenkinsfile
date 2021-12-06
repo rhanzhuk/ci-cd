@@ -1,13 +1,14 @@
-pipeline {
-    agent{
-        docker {
-            image 'maven'
-            args '-v /root/.m2:/root/.m2'
-            reuseNode true
+pipeline{
+    agent any
+    stages{
+        stage ('Build jar') {
+            agent {
+                docker {
+                    image 'maven'
+                    args '-v /var/lib/jenkins/.m2:/root/.m2'
+                    reuseNode true
+                }
             }
-    }
-    stages {
-        stage('Docker') {
             steps {
                 sh 'mvn clean install'
             }
